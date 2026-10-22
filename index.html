@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seattle Voter Guide – Queen Anne Precinct (Complete Ballot)</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --accent-dem: #2563eb;
+      --accent-rep: #dc2626;
+      --accent-np: #0d9488;
+      --tag-warn: #fef3c7;
+      --tag-warn-text: #92400e;
+      --tag-good: #dcfce7;
+      --tag-good-text: #166534;
+      --tag-neutral: #f1f5f9;
+      --tag-neutral-text: #475569;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
+    header p { font-size: 1.05rem; opacity: 0.9; }
+    .loc-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+    .toc-bar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+    .toc-title { font-weight: 700; color: var(--primary); margin-right: 0.5rem; }
+    .toc-link {
+      color: var(--primary-light);
+      text-decoration: none;
+      padding: 0.25rem 0.6rem;
+      background: #eff6ff;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .toc-link.initiative {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+    .toc-link:hover { text-decoration: underline; }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .section-title.initiative-section {
+      border-bottom-color: #f59e0b;
+      color: #92400e;
+    }
+    .section-title span { font-size: 0.85rem; font-weight: normal; color: var(--text-muted); }
+    .race-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .single-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 768px) {
+      .race-grid { grid-template-columns: 1fr; }
+    }
+    .candidate-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .candidate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .candidate-name { font-size: 1.35rem; font-weight: 700; line-height: 1.2; }
+    .candidate-role { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .party-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .party-dem { background: #dbeafe; color: #1e40af; }
+    .party-rep { background: #fee2e2; color: #991b1b; }
+    .party-np  { background: #ccfbf1; color: #115e59; }
+    .party-yes { background: #dcfce7; color: #166534; }
+    .party-no  { background: #fee2e2; color: #991b1b; }
+
+    .meta-list { margin-bottom: 1rem; font-size: 0.9rem; }
+    .meta-item { margin-bottom: 0.35rem; }
+    .meta-label { font-weight: 600; color: var(--text); }
+
+    .box-section {
+      background: #f8fafc;
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-size: 0.88rem;
+      margin-bottom: 0.85rem;
+      border-left: 3px solid var(--primary-light);
+    }
+    .box-title {
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+    }
+    .endorsement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+      font-size: 0.82rem;
+      margin-top: 0.35rem;
+      margin-right: 0.35rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+    .endorsement-badge.no-endorse {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fca5a5;
+    }
+    .endorsement-badge a { color: inherit; text-decoration: underline; }
+    .source-links {
+      margin-top: 0.45rem;
+      font-size: 0.82rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .source-links a {
+      color: #2563eb;
+      text-decoration: none;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .source-links a.pamphlet-link {
+      background: #ecfdf5;
+      border-color: #6ee7b7;
+      color: #047857;
+      font-weight: 600;
+    }
+    .source-links a:hover { text-decoration: underline; background: #dbeafe; }
+    .source-links a.pamphlet-link:hover { background: #d1fae5; }
+
+    .fact-box {
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-size: 0.88rem;
+      margin-top: auto;
+    }
+    .fact-box.solid {
+      background: var(--tag-good);
+      border-left: 4px solid var(--tag-good-text);
+      color: var(--tag-good-text);
+    }
+    .fact-box.caution {
+      background: var(--tag-warn);
+      border-left: 4px solid var(--tag-warn-text);
+      color: var(--tag-warn-text);
+    }
+    .fact-box.neutral {
+      background: var(--tag-neutral);
+      border-left: 4px solid var(--tag-neutral-text);
+      color: var(--tag-neutral-text);
+    }
+    .fact-title {
+      font-weight: 700;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.25rem;
+    }
+    .rating-pill {
+      display: inline-block;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+    .rating-high { background: #bbf7d0; color: #14532d; }
+    .rating-mid { background: #fef08a; color: #713f12; }
+    .rating-low { background: #fecaca; color: #7f1d1d; }
+
+    .ballot-note {
+      background: #f1f5f9;
+      border-left: 4px solid #64748b;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Queen Anne Complete Ballot Voter Guide</h1>
+    <p>Comprehensive guide covering every statewide measure, legislative seat, judicial contest, county office, and municipal initiative on the general election ballot for Queen Anne (near Queen Anne Ave N & Smith St, Seattle).</p>
+    <div class="loc-badge">📍 Precinct Jurisdictions: WA Congressional Dist 7 &bull; Legislative Dist 36 &bull; King County Dist 4 &bull; West Electoral Dist &bull; Seattle Dist 7</div>
+  </header>
+
+  <nav class="toc-bar">
+    <span class="toc-title">Jump to Contest:</span>
+    <a href="#init-645" class="toc-link initiative">IP26-645 (Income Tax)</a>
+    <a href="#init-001" class="toc-link initiative">IL26-001 (Parents' Rights)</a>
+    <a href="#init-638" class="toc-link initiative">IL26-638 (Girls' Sports)</a>
+    <a href="#us-house" class="toc-link">U.S. House (WA-07)</a>
+    <a href="#wa-senate" class="toc-link">WA Senate (36th LD)</a>
+    <a href="#wa-house" class="toc-link">WA House (36th LD)</a>
+    <a href="#kc-assessor" class="toc-link">King County Assessor</a>
+    <a href="#kc-prosecutor" class="toc-link">KC Prosecutor & Elections</a>
+    <a href="#kc-council" class="toc-link">King County Council (Dist 4)</a>
+    <a href="#sc-pos1" class="toc-link">WA Supreme Court (Pos 1, 3, 4, 5, 7)</a>
+    <a href="#coa" class="toc-link">Court of Appeals</a>
+    <a href="#kcdc-west" class="toc-link">KC District Court (West Pos 1)</a>
+    <a href="#muni-court" class="toc-link">Seattle Municipal Court (Pos 5)</a>
+    <a href="#prop-1" class="toc-link">Seattle Proposition 1 (Transit)</a>
+  </nav>
+
+  <div class="ballot-note">
+    <strong>Official Voters' Pamphlet Direct PDF Page Links:</strong> Every contest below includes a green button linking directly to the exact `#page=N` in either the <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf" target="_blank">WA State Voters' Pamphlet PDF (Edition 04 - Seattle)</a> or the <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf" target="_blank">King County Official Local Voters' Pamphlet PDF</a>.
+  </div>
+
+  <!-- INITIATIVE 1: IP26-645 -->
+  <div id="init-645" class="section-title initiative-section">
+    Initiative Measure No. IP26-645 (Initiative 645)
+    <span>Statewide Initiative to the People &bull; State Pamphlet pp. 9–14, 64–65</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote "YES" (Approve Initiative)</div>
+          <div class="candidate-role">Repeal High-Earner Tax & Ban Future Income Taxes</div>
+        </div>
+        <span class="party-tag party-yes">Yes / Approve</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">What a "YES" Vote Does (Pamphlet Summary)</div>
+        <p>Repeals the 9.9% tax on annual individual/household income over $1,000,000 enacted by the Legislature under ESSB 6346 (scheduled to begin in 2028). Prohibits both state and local governments from imposing any tax on or measured by personal income, while leaving the bill's sales tax exemptions and B&O credits in place.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Supporter Links</div>
+        <p><strong>Pro Argument (Pamphlet p. 14):</strong> Written by Sen. Chris Gildon, Jesse Proudman, Patti Mann, and small business owners. Argues Olympia broke promises and can expand an income tax to everyone with the stroke of a pen.</p>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=9" target="_blank" class="pamphlet-link">📄 State Pamphlet: Summary & Fiscal Impact (p. 9)</a>
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=14" target="_blank" class="pamphlet-link">📄 State Pamphlet: Pro/Con Arguments (p. 14)</a>
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=64" target="_blank" class="pamphlet-link">📄 Full Legal Text (p. 64)</a>
+        </div>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Fiscal Impact & Understanding</div>
+        <span class="rating-pill rating-mid">OFM Fiscal Note: -$11.4B over 5 Yrs</span>
+        <p>Per the Office of Financial Management (p. 10–13), approving IP26-645 reduces state revenue by $11.43 billion across FY 2027–2031 while keeping the non-income tax cuts from ESSB 6346 in place, creating a net structural deficit.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote "NO" (Reject Initiative)</div>
+          <div class="candidate-role">Retain High-Earner Tax for Schools & Healthcare</div>
+        </div>
+        <span class="party-tag party-no">No / Reject</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">What a "NO" Vote Does (Pamphlet Summary)</div>
+        <p>Maintains ESSB 6346 imposing a 9.9% tax on adjusted gross income above a $1,000,000 standard deduction (plus $100k charitable deduction), dedicating 5% to the Fair Start for Kids childcare account and 95% to the State General Fund.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Opponents & Specific Editorial Links</div>
+        <p><strong>Con Argument (Pamphlet p. 14):</strong> Written by WEA President Janie White, WSLC President April Sims, nurses, and small business owners.</p>
+        <div class="endorsement-badge no-endorse">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-no-on-i-645-millionaires-tax/" target="_blank">No on I-645 ('Millionaires Tax')</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=14" target="_blank" class="pamphlet-link">📄 State Pamphlet: Con Argument (p. 14)</a>
+          <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/" target="_blank">🔗 The Stranger I-645 Endorsement</a>
+          <a href="https://www.thestranger.com/uncategorized/an-incomplete-history-of-the-millionaires-tax/" target="_blank">🔗 The Stranger: History of Millionaires Tax</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Structural Understanding</div>
+        <span class="rating-pill rating-high">Funds Working Family Tax Cuts</span>
+        <p>Preserves the revenue stream paying for the elimination of sales tax on diapers, OTC drugs, and hygiene items, small-business B&O credits, and Working Families Tax Credit expansion (p. 10).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INITIATIVE 2: IL26-001 -->
+  <div id="init-001" class="section-title initiative-section">
+    Initiative Measure No. IL26-001 (Initiative 1)
+    <span>Statewide Initiative to the Legislature &bull; State Pamphlet pp. 15–19, 65–68</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote "YES" (Approve Initiative)</div>
+          <div class="candidate-role">Re-Enact Initiative 2081 Parental Rights Statute</div>
+        </div>
+        <span class="party-tag party-yes">Yes / Approve</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">What a "YES" Vote Does (Pamphlet Summary)</div>
+        <p>Undoes the 2025 legislative amendments to RCW 28A.605.005 and re-enacts the original 2024 Initiative 2081 language. Requires schools to produce all student-specific records (including medical and mental health counseling records) within 10 business days and requires prior notification for non-emergency medical services.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Supporter Links</div>
+        <p><strong>Pro Argument (Pamphlet p. 19):</strong> Written by teachers, La Center Superintendent Peter Rosenkranz, and parent advocates.</p>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=15" target="_blank" class="pamphlet-link">📄 State Pamphlet: Summary & Explanatory (p. 15)</a>
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=19" target="_blank" class="pamphlet-link">📄 State Pamphlet: Pro/Con Arguments (p. 19)</a>
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=65" target="_blank" class="pamphlet-link">📄 Full Legal Text (p. 65)</a>
+        </div>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Attorney General Explanatory Fact Check (p. 17–18)</div>
+        <span class="rating-pill rating-low">Removes Key Statutory Protections</span>
+        <p>Per the Attorney General's Explanatory Statement (p. 17–18), approving IL26-001 removes the provision that health care records are governed by state healthcare privacy laws, and deletes the explicit right to immediate notification when a child is the victim of sexual abuse or assault by a school employee or contractor.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote "NO" (Reject Initiative)</div>
+          <div class="candidate-role">Retain Current Law (RCW 28A.605.005)</div>
+        </div>
+        <span class="party-tag party-no">No / Reject</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">What a "NO" Vote Does (Pamphlet Summary)</div>
+        <p>Keeps current state law in place, preserving parental rights to inspect education records and curriculum while keeping student health care disclosure rules, anti-bullying complaint rights, and immediate crime-victim notification rules intact.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Opponents & Specific Editorial Links</div>
+        <p><strong>Con Argument (Pamphlet p. 19):</strong> Written by Sen. John Lovick (former Snohomish County Sheriff), WA Coalition Against Domestic Violence, WA State Nurses Association, and League of Women Voters.</p>
+        <div class="endorsement-badge no-endorse">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-for-the-sake-of-student-safety-turn-down-initiative-001-on-parents-rights/" target="_blank">Turn Down Initiative 001 on Parents' Rights</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=19" target="_blank" class="pamphlet-link">📄 State Pamphlet: Con Argument (p. 19)</a>
+          <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/" target="_blank">🔗 The Stranger I-001 Endorsement</a>
+          <a href="https://wastatepta.org" target="_blank">🔗 WA State PTA Position</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Child Welfare Protection</div>
+        <span class="rating-pill rating-high">Aligns with Domestic Violence Safeguards</span>
+        <p>Prevents schools from being forced to disclose counseling or shelter records when a parent is a defendant in a criminal proceeding or under investigation for abuse (p. 68).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INITIATIVE 3: IL26-638 -->
+  <div id="init-638" class="section-title initiative-section">
+    Initiative Measure No. IL26-638 (Initiative 638)
+    <span>Statewide Initiative to the Legislature &bull; State Pamphlet pp. 20–22, 68–70</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote "YES" (Approve Initiative)</div>
+          <div class="candidate-role">Restrict Girls' Teams & Require Medical Sex Verification</div>
+        </div>
+        <span class="party-tag party-yes">Yes / Approve</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">What a "YES" Vote Does (Pamphlet Summary)</div>
+        <p>Prohibits students defined as "biologically male" from competing on K-12 public or WIAA-affiliated private school sports teams designated for female students only. Requires every student competing in female-designated sports to submit a physician-signed form verifying biological sex based on "reproductive anatomy, genetic makeup, or normal endogenously produced testosterone levels."</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Supporter Links</div>
+        <p><strong>Pro Argument (Pamphlet p. 22):</strong> Written by coaches, Olympic medalist Carol Brown, pediatrician Erica Li, MD, and student athletes.</p>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=20" target="_blank" class="pamphlet-link">📄 State Pamphlet: Summary & Explanatory (p. 20)</a>
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=22" target="_blank" class="pamphlet-link">📄 State Pamphlet: Pro/Con Arguments (p. 22)</a>
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=68" target="_blank" class="pamphlet-link">📄 Full Legal Text (p. 68)</a>
+        </div>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Statutory Text Fact Check (p. 21, 69)</div>
+        <span class="rating-pill rating-low">Birth Certificates Disallowed by Text</span>
+        <p>Although the Pro rebuttal (p. 22) claims a doctor can verify sex "based on the student's birth records," the actual legal text in Section 3(2) (p. 69) states the provider may rely <em>"only on one or more of the following: The student's reproductive anatomy, genetic makeup, or normal endogenously produced testosterone levels."</em></p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote "NO" (Reject Initiative)</div>
+          <div class="candidate-role">Preserve Current WIAA Rules & Avoid Medical Verification</div>
+        </div>
+        <span class="party-tag party-no">No / Reject</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">What a "NO" Vote Does (Pamphlet Summary)</div>
+        <p>Maintains existing OSPI and Washington Interscholastic Activities Association (WIAA) non-discrimination policies and current routine sports physical rules without mandatory anatomical, genetic, or hormonal sex verification forms for female athletes.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Opponents & Specific Editorial Links</div>
+        <p><strong>Con Argument (Pamphlet p. 22):</strong> Written by WA State Nurses Association President Justin Gill, family physician Grace Shih, MD, school nurses, and coaches.</p>
+        <div class="endorsement-badge no-endorse">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-no-on-initiative-638-girls-sports/" target="_blank">No on Initiative 638 (Girls Sports)</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=22" target="_blank" class="pamphlet-link">📄 State Pamphlet: Con Argument (p. 22)</a>
+          <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/" target="_blank">🔗 The Stranger I-638 Endorsement</a>
+          <a href="https://www.aclu-wa.org" target="_blank">🔗 ACLU-WA Analysis</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Medical & Anti-Discrimination Standard</div>
+        <span class="rating-pill rating-high">Protects Student Privacy</span>
+        <p>Prevents female student-athletes from having to undergo anatomical, genetic, or hormonal certification exams that male athletes are exempt from (p. 21).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. US HOUSE -->
+  <div id="us-house" class="section-title">
+    1. U.S. House of Representatives – Washington's 7th Congressional District
+    <span>Federal &bull; 2-Year Term &bull; State Pamphlet pp. 24–25</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Pramila Jayapal</div>
+          <div class="candidate-role">Incumbent U.S. Representative (since 2017)</div>
+        </div>
+        <span class="party-tag party-dem">Democrat</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Georgetown University (BA, English & Economics); Northwestern University (MBA)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> U.S. Representative (2017–present); WA State Senator (2015–2017); Founder/Executive Director, OneAmerica; Chair Emerita, Congressional Progressive Caucus</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 24)</div>
+        <p>Highlights leading the Medicare for All Act, tuition-free higher education, bipartisan bills banning Congressional stock trading, co-chairing the Monopoly Busters Caucus, holding over 130 town halls, securing $25M+ in constituent federal benefits, and bringing $70M+ in federal community investments.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-7th-congressional-district/" target="_blank">7th Congressional District Endorsement</a>
+        </div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Pramila-Jayapal" target="_blank">Pramila Jayapal Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=24" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 24)</a>
+          <a href="https://ballotpedia.org/Pramila_Jayapal" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> Senior member on House Judiciary, Foreign Affairs, and Budget Committees; Ranking Member of Immigration Subcommittee; proven record securing federal appropriations for Seattle.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding of Issues & Factual Accuracy</div>
+        <span class="rating-pill rating-high">Accurate / High Fluency</span>
+        <p>Demonstrates deep fluency with federal statutes, legislative appropriations, and regulatory administrative processes.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Nirav Sheth</div>
+          <div class="candidate-role">Challenger, CFO & Military Veteran</div>
+        </div>
+        <span class="party-tag party-rep">Republican</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Associate degree in Electrical Engineering & Computer Science; Airframe Mechanic & Business coursework</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> CFO at Sheth Groups (Meineke franchises, 2017–present); Co-owner, Bistro Baffi (2018–2025); Lakewood Police Officer (2017); U.S. Marine Corps (2011–2014)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 25)</div>
+        <p>Focuses on sustainable & affordable housing, bringing law & order back to Seattle, lower cost of living, "military-grade accountability" in D.C., and energy independence. Cites personal experience closing his restaurant due to local economic conditions.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Coverage Links</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=25" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 25)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-7th-congressional-district/" target="_blank">🔗 Seattle Times 7th CD Race Review</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Moderate-to-Low:</strong> Commendable military service and franchise business experience, but no prior elected governance or federal legislative policy background.</p>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Understanding of Issues & Factual Accuracy</div>
+        <span class="rating-pill rating-mid">Caution / Conflates Local & Federal Roles</span>
+        <p>Pamphlet statement centers heavily on local municipal policing and neighborhood street conditions that fall under City of Seattle / King County jurisdiction rather than U.S. House authority.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. WA SENATE 36TH LD -->
+  <div id="wa-senate" class="section-title">
+    2. Washington State Senate – 36th Legislative District
+    <span>State Legislature &bull; 4-Year Term &bull; State Pamphlet p. 42</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Noel C. Frame</div>
+          <div class="candidate-role">Incumbent State Senator (serving since 2023)</div>
+        </div>
+        <span class="party-tag party-dem">Democrat</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> George Washington University (BA, Political Communication; MA, Political Management)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> State Senator (2023–present); State Representative (2016–2023); Vice Chair, Senate Ways & Means (Finance); Managing Partner, Uncommon Bridges</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 42)</div>
+        <p>Highlights 10 years representing the 36th LD, passing the Millionaires Tax paired with expanding the Working Families Tax Credit (460,000 new households), expanding the senior property tax exemption (50,000 households), and exempting key household items from sales tax.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Editorial Links</div>
+        <p><strong>Endorsed by The Stranger.</strong> <em>The Seattle Times</em> declined to endorse her in its "Unendorseables" editorial, critiquing her tax and legislative privilege stances.</p>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Noel-Frame" target="_blank">Noel Frame Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=42" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 42)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/unendorseables-these-lawmakers-once-received-times-endorsements-not-this-time/" target="_blank">🔗 Seattle Times 36th LD Editorial Critique</a>
+          <a href="https://ballotpedia.org/Noel_Frame" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> A decade of legislative service in Olympia; primary authority in the legislature on tax code structure, child welfare, and state revenue mechanisms.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding of Issues & Factual Accuracy</div>
+        <span class="rating-pill rating-high">Accurate / High Fluency</span>
+        <p>Precise knowledge of the Revised Code of Washington (RCW) and state revenue data; accurately cites the 460,000 household WFTC expansion and sales tax exemptions in ESSB 6346.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Jillian England</div>
+          <div class="candidate-role">Challenger & Healthcare/IT Operations Professional</div>
+        </div>
+        <span class="party-tag party-rep">Republican</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Puget Sound (BS, Computer Science and Business)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Career in computer science and healthcare business operations; Precinct Committee Officer since 2007; Vice Chair, 36th LD Republicans</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 42)</div>
+        <p>Pledges to repeal the 9.9% Millionaires Tax and the Climate Commitment Act, accelerate nuclear and natural gas energy, clear homeless encampments, and cut sales/B&O taxes and regulations.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Editorial Links</div>
+        <p>Endorsed by the 36th LD Republicans; <em>The Seattle Times</em> declined to endorse either candidate in the 36th District.</p>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=42" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 42)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/unendorseables-these-lawmakers-once-received-times-endorsements-not-this-time/" target="_blank">🔗 Seattle Times 36th LD Editorial</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Low-to-Moderate:</strong> Strong private-sector computer science and healthcare operations background, but lacks formal public policy or legislative governance experience.</p>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Understanding of Issues & Factual Accuracy</div>
+        <span class="rating-pill rating-mid">Caution / Incomplete Claim</span>
+        <p>Pamphlet statement (p. 42) claims Sen. Frame "ignores... our high sales tax and the cascading Business and Occupation (B&O) tax," omitting that ESSB 6346 (verified by the Attorney General on p. 10) specifically eliminated sales taxes on diapers, OTC medicines, and hygiene products and increased the small-business B&O tax credit.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. WA HOUSE 36TH LD -->
+  <div id="wa-house" class="section-title">
+    3. Washington State House of Representatives – 36th Legislative District
+    <span>State Legislature &bull; 2-Year Term &bull; Unopposed &bull; State Pamphlet pp. 43–44</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Julia Grant Reed (Position 1)</div>
+          <div class="candidate-role">Incumbent State Representative (since 2023)</div>
+        </div>
+        <span class="party-tag party-dem">Democrat</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Smith College (BA); Princeton University (MPA)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Consultant at Kinetic West; Former Senior Policy Advisor & Regional Affairs Director, City of Seattle; Former Obama Administration staff (State Dept & OMB)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 43)</div>
+        <p>Focuses on youth and workforce development, pro-housing policies, pathways to apprenticeships and higher ed, Washington's creative economy, and climate-friendly maritime and transit solutions.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Endorsements</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=43" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 43)</a>
+          <a href="https://ballotpedia.org/Julia_Reed" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Assessment & Fluency</div>
+        <span class="rating-pill rating-high">Highly Qualified (Unopposed)</span>
+        <p>Strong federal OMB and municipal policy background. Running unopposed.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Liz Berry (Position 2)</div>
+          <div class="candidate-role">Incumbent State Representative (since 2021)</div>
+        </div>
+        <span class="party-tag party-dem">Democrat</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> American University (BA); Harvard University (Executive Certificate in Public Leadership)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> State Representative (2021–present); Former Executive Director, WA Association for Justice; Former Legislative Director to U.S. Rep. Gabby Giffords</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 44)</div>
+        <p>Chair of the House Labor Committee; highlights protecting workers from wage theft and noncompete agreements, reducing plastic waste, expanding recycling, and passing permit-to-purchase firearm safety legislation.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Endorsements</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=44" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 44)</a>
+          <a href="https://ballotpedia.org/Liz_Berry" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Assessment & Fluency</div>
+        <span class="rating-pill rating-high">Highly Qualified (Unopposed)</span>
+        <p>Effective committee chair with strong legislative track record. Running unopposed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. KING COUNTY ASSESSOR -->
+  <div id="kc-assessor" class="section-title">
+    4. King County Assessor
+    <span>Countywide Nonpartisan Office &bull; 4-Year Term &bull; King County Pamphlet p. 17</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Rob Foxcurran</div>
+          <div class="candidate-role">Senior Appraiser & Hearing Examiner</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Washington (BA); Certified General Real Estate Appraiser</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Senior Appraiser, City of Seattle; Former King County Board of Appeals and Equalization Hearing Examiner</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 17)</div>
+        <p>Emphasizes being the only candidate who has actually done professional valuation work. Pledges accurate, fair, and transparent assessments, and advocating in Olympia for primary-residence homestead protections and a renter's tax credit.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/foxcurran-is-the-better-choice-for-king-county-assessor/" target="_blank">Foxcurran is the Better Choice for Assessor</a>
+        </div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Rob-Foxcurran" target="_blank">Rob Foxcurran Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=17" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 17)</a>
+          <a href="https://ballotpedia.org/Rob_Foxcurran" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Exceptional:</strong> Holds Certified General Real Estate Appraiser credentials and Board of Equalization hearing examiner experience; endorsed by the President of the WA State Association of County Assessors.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding of Issues & Factual Accuracy</div>
+        <span class="rating-pill rating-high">Precise & Factual</span>
+        <p>Accurately distinguishes between administrative property valuation (Assessor's role) and statutory tax exemptions (which require state legislative action in Olympia).</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Dominique M. Scarimbolo</div>
+          <div class="candidate-role">Small Business Owner & CAPR Chapter President</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Washington State University (BA, Criminal Justice)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Small Family Business Owner; King County Chapter President, Citizens' Alliance for Property Rights (CAPR)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 17)</div>
+        <p>Argues the Assessor is a leadership role rather than an appraiser role; highlights studying the property tax system from a taxpayer's perspective through public records requests and appeals, demanding parcel-specific valuation breakdowns and due process.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Coverage Links</div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=17" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 17)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/foxcurran-is-the-better-choice-for-king-county-assessor/" target="_blank">🔗 Seattle Times Assessor Editorial</a>
+          <a href="https://ballotpedia.org/Dominique_Scarimbolo" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Low:</strong> Lacks certified appraisal credentials, mass-appraisal statistical training, or public agency management experience.</p>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Understanding of Issues & Factual Accuracy</div>
+        <span class="rating-pill rating-low">Conflates Valuation with Tax Bills</span>
+        <p>Campaign implies the Assessor can prevent people from being "taxed out of their homes," overlooking that Washington uses a budget-based property tax system where taxing districts and voter levies set the dollar collection amount, and the Assessor is legally bound by RCW 84.40.030 to assess properties at 100% of true and fair market value.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. KING COUNTY PROSECUTOR & ELECTIONS DIRECTOR -->
+  <div id="kc-prosecutor" class="section-title">
+    5. King County Prosecuting Attorney & Director of Elections
+    <span>Countywide Nonpartisan Offices &bull; Unopposed &bull; King County Pamphlet pp. 16, 18</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Leesa Manion (Prosecuting Attorney)</div>
+          <div class="candidate-role">Incumbent King County Prosecutor (since 2023)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Northern Kentucky University (BA); Seattle University School of Law (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> King County Prosecuting Attorney (2023–present); Chief of Staff (2007–2022) and Deputy Prosecutor, King County PAO</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 16)</div>
+        <p>Notes leading a team of nearly 600 professionals, a nearly 50% reduction in gun homicides since 2023, strong Extreme Risk Protection Order policies, victim support, and juvenile justice reform.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Endorsements</div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=16" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 16)</a>
+          <a href="https://ballotpedia.org/Leesa_Manion" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Qualification Assessment & Understanding</div>
+        <span class="rating-pill rating-high">Exceptional (Unopposed)</span>
+        <p>Nearly two decades of executive management in the King County Prosecutor's Office. Running unopposed.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Julie Wise (Director of Elections)</div>
+          <div class="candidate-role">Incumbent King County Director of Elections (since 2015)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Green River College (AA); Certified National and Washington State Election Administrator</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> King County Director of Elections (2015–present); 26-year career election administrator</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 18)</div>
+        <p>Highlights expanding to 80+ secure ballot drop boxes, voting centers, materials in 7 languages, automated ballot alerts, physical/cybersecurity layers, and the Voter Education Fund.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Endorsements</div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=18" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 18)</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Qualification Assessment & Understanding</div>
+        <span class="rating-pill rating-high">Exceptional (Unopposed)</span>
+        <p>Nationally recognized election administrator with 26 years of operational experience at King County Elections. Running unopposed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. KING COUNTY COUNCIL DIST 4 -->
+  <div id="kc-council" class="section-title">
+    6. Metropolitan King County Council – District 4
+    <span>Queen Anne, Magnolia, Belltown, Ballard &bull; 4-Year Term &bull; Unopposed &bull; KC Pamphlet p. 21</span>
+  </div>
+  <div class="single-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Jorge L. Barón</div>
+          <div class="candidate-role">Incumbent King County Councilmember (since 2024)</div>
+        </div>
+        <span class="party-tag party-dem">Democrat</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Duke University (BA, Economics & History); Yale Law School (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> King County Councilmember (2024–present); Executive Director, Northwest Immigrant Rights Project (NWIRP, 2008–2023)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 21)</div>
+        <p>Highlights stabilizing homelessness response, investing in Public Health clinics and Harborview Medical Center, improving Metro transit safety and reliability, and defending immigrant and transgender residents.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Profile Links</div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=21" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 21)</a>
+          <a href="https://kingcounty.gov/council/baron.aspx" target="_blank">🔗 King County Council Official Page</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Qualification Assessment & Understanding</div>
+        <span class="rating-pill rating-high">Highly Qualified (Unopposed)</span>
+        <p>Extensive legal, executive nonprofit, and county governance experience. Running unopposed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. WA SUPREME COURT POS 1 -->
+  <div id="sc-pos1" class="section-title">
+    7. Washington State Supreme Court – Position 1
+    <span>Statewide Nonpartisan Judicial &bull; 2-Year Unexpired Term &bull; State Pamphlet p. 55</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Colleen Melody</div>
+          <div class="candidate-role">Incumbent Justice (Appointed Jan 2026)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Washington (BA & JD, both with high honors)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Supreme Court Justice; Founding Chief of Civil Rights Division, WA Attorney General's Office; U.S. DOJ Civil Rights Division; UW Law Lecturer</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 55)</div>
+        <p>Highlights recovering millions in owed wages for workers, protecting employees from pregnancy discrimination, leading the WA AG Civil Rights Division to defeat the 2017 travel ban, and endorsement by every sitting WA Supreme Court Justice.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/the-times-recommends-colleen-melody-for-washington-state-supreme-court-position-1/" target="_blank">Colleen Melody for Supreme Court Pos. 1</a>
+        </div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Colleen-Melody" target="_blank">Colleen Melody Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=55" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 55)</a>
+          <a href="https://ballotpedia.org/Colleen_Melody" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Exceptional:</strong> Proven constitutional and civil rights litigator with extensive state and federal appellate experience.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">Superior Legal Acumen</span>
+        <p>Rigorous adherence to statutory interpretation and constitutional precedent.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Scott Edwards</div>
+          <div class="candidate-role">Challenger & Appellate/Tax Attorney</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Princeton University (BA, Economics, <em>magna cum laude</em>); UW School of Law (JD with Honors)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Partner/Practice Chair, Ballard Spahr / Lane Powell (2010–present); Perkins Coie (1999–2010); Adjunct Professor, UW School of Law (20+ years)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 55)</div>
+        <p>Emphasizes applying the constitution and laws as written rather than rewriting them, 30+ years representing clients across Washington courts including a dozen WA Supreme Court cases, and taking politics out of the courtroom.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Coverage Links</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=55" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 55)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/the-times-recommends-colleen-melody-for-washington-state-supreme-court-position-1/" target="_blank">🔗 Seattle Times Pos. 1 Race Analysis</a>
+          <a href="https://ballotpedia.org/Scott_Edwards" target="_blank">🔗 Ballotpedia Bio</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> Substantial 30-year appellate and state tax litigation career; respected law school adjunct faculty.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">High Legal Acumen</span>
+        <p>Strong command of appellate and constitutional tax law, though lacks prior judicial bench experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. WA SUPREME COURT POS 3 -->
+  <div id="sc-pos3" class="section-title">
+    8. Washington State Supreme Court – Position 3
+    <span>Statewide Nonpartisan Judicial &bull; 6-Year Term &bull; State Pamphlet p. 56</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Jaime Michelle Hawk</div>
+          <div class="candidate-role">King County Superior Court Judge</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Gonzaga University School of Law (JD, with honors)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> King County Superior Court Judge; ACLU of Washington Legal Strategy Director; Federal Public Defender; Adjunct Law Professor</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 56)</div>
+        <p>Notes presiding over hundreds of criminal, civil, and family law cases without ever having a trial overturned for legal error; service on the bi-partisan Federal Judge Selection Committee; endorsed by 100+ current and retired judges.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-state-supreme-court-position-3/" target="_blank">Supreme Court Position 3 Endorsement</a>
+        </div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Jaime-Michelle-Hawk" target="_blank">Jaime Michelle Hawk Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=56" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 56)</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> Experienced Superior Court trial judge with 20+ years of federal appellate, criminal defense, and constitutional litigation experience.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">Impartial & Rigorous</span>
+        <p>Strong trial record and high ratings from state bar associations.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">David Stevens</div>
+          <div class="candidate-role">Mason County Superior Court Judge</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Washington (BA & JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Mason County Superior Court Judge; Senior Felony Prosecutor; Federal Public Defender; Chief Public Defender, Colville Confederated Tribes; Navy Veteran</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 56)</div>
+        <p>Criticizes the tradition of governors appointing judges rather than electing them; notes trying 200+ jury trials as a prosecutor, public defender, and judge, and past service as a Federal Civil Rights Investigator.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Coverage Links</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=56" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 56)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-general-election-2026-state-supreme-court-position-3/" target="_blank">🔗 Seattle Times Pos. 3 Race Analysis</a>
+          <a href="https://ballotpedia.org/David_Stevens" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Moderate-to-High:</strong> Broad trial experience across prosecution, defense, and the Superior Court bench, though criticized by the Seattle Times editorial board for lacking engagement in judicial interviews.</p>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Understanding & Constitutional Note</div>
+        <span class="rating-pill rating-mid">Misleading Constitutional Claim</span>
+        <p>Pamphlet statement (p. 56) implies gubernatorial appointment to judicial vacancies circumvents the WA Constitution, when Article IV, Section 3 of the Washington Constitution explicitly mandates that the Governor fill Supreme Court vacancies until the next general election—and Position 3 is an open seat with no appointed incumbent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. WA SUPREME COURT POS 4 -->
+  <div id="sc-pos4" class="section-title">
+    9. Washington State Supreme Court – Position 4
+    <span>Statewide Nonpartisan Judicial &bull; 6-Year Term &bull; State Pamphlet p. 57</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Sean O'Donnell</div>
+          <div class="candidate-role">King County Superior Court Judge</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Georgetown University (BA); Seattle University School of Law (JD, <em>cum laude</em>)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> King County Superior Court Judge (since 2013); Supreme Court Justice Pro Tem; Elected President, Superior Court Judges' Association; Chief of Criminal & Family Law Depts; Prosecutor (12 yrs)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 57)</div>
+        <p>Highlights 25 years in public service, starting a domestic violence protection order court that resulted in hundreds of firearms being surrendered, being named "Judge of the Year" by ABOTA, and endorsements from over 200 judges.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Endorsement: <a href="https://www.seattletimes.com/opinion/editorials/seattle-times-endorsements-wa-primary-2026-wa-state-supreme-court-position-4/" target="_blank">Supreme Court Pos. 4 Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=57" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 57)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/watch-out-state-supreme-court-pos-4-candidate-hits-new-lows/" target="_blank">🔗 Seattle Times Follow-Up Editorial</a>
+          <a href="https://ballotpedia.org/Sean_O%27Donnell" target="_blank">🔗 Ballotpedia Bio</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Exceptional:</strong> 13 years on the Superior Court bench, peer-elected leader of Washington's Superior Court judges, and rated "Exceptionally Well Qualified" by multiple bar associations.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">Impeccable Judicial Restraint</span>
+        <p>Strict adherence to nonpartisan judicial ethics and constitutional boundaries.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Ian Birk</div>
+          <div class="candidate-role">Judge, WA Court of Appeals (Division I)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Washington (BA & JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Judge, WA Court of Appeals (appointed by Gov. Inslee, then elected); 20 years in private civil & appellate litigation practice</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 57)</div>
+        <p>Emphasizes being the only candidate in the race with statewide appellate court experience, authoring hundreds of decisions across civil, criminal, family, and constitutional law, and 10+ years volunteering at KCBA legal clinics.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Editorial Links</div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Ian-Birk" target="_blank">Ian Birk Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=57" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 57)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/watch-out-state-supreme-court-pos-4-candidate-hits-new-lows/" target="_blank">🔗 Seattle Times Editorial Critique of Birk</a>
+          <a href="https://ballotpedia.org/Ian_Birk" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> Accomplished appellate judge with strong civil litigation and opinion-writing credentials.</p>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Understanding & Judicial Campaign Ethics</div>
+        <span class="rating-pill rating-mid">Rebuked for Partisan Campaigning</span>
+        <p>While legally fluent, Birk drew an open rebuke from 62 Washington judges and <em>The Seattle Times</em> editorial board for falsely characterizing bipartisan support for his opponent as a "partisan agenda."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. WA SUPREME COURT POS 5 -->
+  <div id="sc-pos5" class="section-title">
+    10. Washington State Supreme Court – Position 5
+    <span>Statewide Nonpartisan Judicial &bull; 2-Year Unexpired Term &bull; State Pamphlet p. 58</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Theo Angelis</div>
+          <div class="candidate-role">Incumbent Justice (Appointed Apr 2026)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Claremont McKenna College (BA); Oxford University (MA); London School of Economics (MA); Yale Law School (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Supreme Court Justice; 26-year legal career as Appellate & IP Partner at K&L Gates; KCBA Trustee</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 58)</div>
+        <p>Highlights suing the federal government to win legal representation for young children in immigration court (ACLU Humanitarian Award), representing a wrongfully detained U.S. Army veteran, and endorsement by all sitting Supreme Court Justices.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/the-times-recommends-theo-angelis-for-state-supreme-court-pos-5/" target="_blank">Theo Angelis for Supreme Court Pos. 5</a>
+        </div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Theo-Angelis" target="_blank">Theo Angelis Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=58" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 58)</a>
+          <a href="https://ballotpedia.org/Theo_Angelis" target="_blank">🔗 Ballotpedia Overview</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Exceptional:</strong> 26-year appellate litigator with extraordinary academic and constitutional credentials.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">Superior Legal Acumen</span>
+        <p>Praised across the legal spectrum for analytical rigor and judicial temperament.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Dave Larson</div>
+          <div class="candidate-role">Retired Federal Way Municipal Court Judge</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Puget Sound (BA); Seattle University School of Law (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> 41 years legal experience: Federal Way Municipal Court Judge (18 years, Ret.) and trial lawyer (23 years)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 58)</div>
+        <p>Emphasizes 41 years of legal and trial judge experience, bipartisan outreach across Eastern and Western Washington, and criticizing recent WA Supreme Court decisions on criminal justice and addiction.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Coverage Links</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=58" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 58)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/the-times-recommends-theo-angelis-for-state-supreme-court-pos-5/" target="_blank">🔗 Seattle Times Pos. 5 Editorial</a>
+          <a href="https://ballotpedia.org/Dave_Larson" target="_blank">🔗 Ballotpedia Profile</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Moderate-to-High:</strong> 18 years as a municipal trial judge and rated Exceptionally Well Qualified, though municipal courts are courts of limited (misdemeanor) jurisdiction rather than appellate courts.</p>
+      </div>
+      <div class="fact-box neutral">
+        <div class="fact-title"><span>ℹ</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-mid">Trial Court Focus</span>
+        <p>Solid grasp of trial court operations and therapeutic court reform.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. WA SUPREME COURT POS 7 -->
+  <div id="sc-pos7" class="section-title">
+    11. Washington State Supreme Court – Position 7
+    <span>Statewide Nonpartisan Judicial &bull; 6-Year Term &bull; State Pamphlet p. 59</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Debra L. Stephens</div>
+          <div class="candidate-role">Incumbent Chief Justice (Justice since 2008)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Gonzaga University (BA & JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> WA Supreme Court Chief Justice and Justice (since 2008); Court of Appeals Judge (2007); Appellate Attorney & Gonzaga Law Professor (1993–2007)</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 59)</div>
+        <p>Emphasizes serving as Chief Justice, protecting judicial independence against politicization, her background as a constitutional law professor and the first woman from Eastern Washington on the Court, and civic learning leadership.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/the-seattle-times-endorsements-wa-primary-2026-supreme-court-position-7/" target="_blank">Supreme Court Position 7 Endorsement</a>
+        </div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Debra-L.-Stephens" target="_blank">Debra L. Stephens Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=59" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 59)</a>
+          <a href="https://ballotpedia.org/Debra_L._Stephens" target="_blank">🔗 Ballotpedia Overview</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Exceptional:</strong> 18 years on the Washington Supreme Court, currently serving as Chief Justice.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">Mastery of State Precedent</span>
+        <p>Deep foundational authority on Washington State constitutional jurisprudence.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Todd A. Bloom</div>
+          <div class="candidate-role">Challenger, Tax Attorney, CPA & Navy Veteran</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Simpson College (BA); Tulane University (JD, MBA); UW (LL.M.); Naval War College (MA)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Tax Attorney & Senior Manager in accounting firms; Active-duty Navy Officer (2002–2013); FINRA Arbitrator; WSBA Board of Governors</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (State Pamphlet p. 59)</div>
+        <p>Highlights post-9/11 Naval Reserve active duty deployment to the Persian Gulf, service on the WSBA Board of Governors, and offering voters a new perspective and balance on the Court.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Coverage Links</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=59" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 59)</a>
+          <a href="https://www.seattletimes.com/opinion/editorials/the-seattle-times-endorsements-wa-primary-2026-supreme-court-position-7/" target="_blank">🔗 Seattle Times Pos. 7 Editorial</a>
+          <a href="https://ballotpedia.org/Todd_Bloom" target="_blank">🔗 Ballotpedia Bio</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>Low:</strong> Strong tax/accounting credentials and military service, but no prior judicial bench experience and minimal general courtroom litigation record.</p>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-low">Narrow Legal Breadth</span>
+        <p>Lacks criminal, family, and general appellate judicial experience required for the state's highest court.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. COURT OF APPEALS -->
+  <div id="coa" class="section-title">
+    12. Washington State Court of Appeals – Division 1, District 1
+    <span>State Judicial &bull; 6-Year Term &bull; Unopposed &bull; State Pamphlet pp. 60–61</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">David S. Mann (Position 5)</div>
+          <div class="candidate-role">Incumbent Judge, Court of Appeals (since 2016)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> UC Santa Barbara (BA); Lewis & Clark Law School (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Judge and Former Chief Judge, Division I Court of Appeals (500+ opinions authored); 25 years environmental & land use law</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet Link</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=60" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 60)</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Assessment</div>
+        <span class="rating-pill rating-high">Highly Qualified (Unopposed)</span>
+        <p>Most senior judge on Division I; authors 65+ opinions annually. Uncontested.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Bill A. Bowman (Position 6)</div>
+          <div class="candidate-role">Incumbent Acting Chief Judge, Court of Appeals (since 2020)</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Washington (BA); California Western School of Law (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Court of Appeals Judge (2020–present); King County Superior Court Judge (2011–2020); Former Public Defender & Deputy Prosecutor</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet Link</div>
+        <div class="source-links">
+          <a href="https://www.sos.wa.gov/sites/default/files/2026-10/Voters%20Pamphlet%202026%20-%20Edition%2004%C2%A0-%20King%20-%20Seattle.pdf#page=61" target="_blank" class="pamphlet-link">📄 State Voters' Pamphlet (p. 61)</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Assessment</div>
+        <span class="rating-pill rating-high">Highly Qualified (Unopposed)</span>
+        <p>15 years of combined trial and appellate bench leadership. Uncontested.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. KING COUNTY DISTRICT COURT WEST -->
+  <div id="kcdc-west" class="section-title">
+    13. King County District Court – West Electoral District (Position 1)
+    <span>Covers Seattle &bull; Contested Race &bull; King County Pamphlet p. 36 (Positions 2–5 Unopposed on pp. 37–38)</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Bardi Martin</div>
+          <div class="candidate-role">Incumbent King County District Court Judge</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> University of Washington (BA); Seattle University School of Law (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Appointed King County District Court Judge; 19 years as public defender, private practitioner, and Judge Pro Tem</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 36)</div>
+        <p>Unanimously appointed by King County Council; presides over civil/criminal matters and Shoreline/Kenmore Community Court connecting low-level offenders to housing and treatment.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsements</div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Bardi-Martin" target="_blank">Bardi Martin Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=36" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 36)</a>
+          <a href="https://kcdems.org/endorsements/" target="_blank">🔗 King County Democrats Sole Endorsement</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Qualification Assessment</div>
+        <span class="rating-pill rating-high">High / Sitting Incumbent</span>
+        <p>19 years of courtroom experience and active service presiding over District and Community Courts.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Nyjat Rose-Akins</div>
+          <div class="candidate-role">King County Pro Tem Judge & Former Asst. City Attorney</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Howard University (BBA, International Business & Finance); Seattle University School of Law (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Judge Pro Tem (thousands of cases); Former Assistant City Attorney; 16 years legal experience</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 36)</div>
+        <p>Highlights presiding over thousands of cases as Judge Pro Tem (protection orders, domestic violence, small claims, DUIs) and rating "Exceptionally Well-Qualified" by five bar associations.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Endorsements</div>
+        <p>Endorsed by 32nd, 34th, 36th, 37th, and 46th LD Democrats, AG Nick Brown, and Justices Whitener, Mungia, and Angelis.</p>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=36" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 36)</a>
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=37" target="_blank" class="pamphlet-link">📄 Unopposed West Dist Pos. 2–5 (pp. 37–38)</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Qualification Assessment</div>
+        <span class="rating-pill rating-high">High / Exceptionally Well Qualified</span>
+        <p>Strong ratings across five bar associations and extensive Pro Tem bench experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. SEATTLE MUNICIPAL COURT -->
+  <div id="muni-court" class="section-title">
+    14. Seattle Municipal Court – Position No. 5
+    <span>Contested Race &bull; KC Pamphlet p. 44 (Unopposed Positions 1, 2, 3, 4, 6, 7 on pp. 42, 43, 45)</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Garmon Newsom</div>
+          <div class="candidate-role">Seattle Municipal Court Judge Pro Tem</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Morehouse College (BA, Political Science); George Washington University Law School (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Seattle Municipal Court Judge Pro Tem; Former Burien City Attorney; Felony & Misdemeanor Prosecutor; 34 years legal service</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 44)</div>
+        <p>Emphasizes 34 years of public service, focusing on protecting the community while providing diversion and treatment; notes being the only candidate in the race rated "Exceptionally Well-Qualified" by Cardozo, Latina/o, and Joint Asian Bar Associations.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsement</div>
+        <div class="endorsement-badge">
+          ★ Seattle Times Editorial: <a href="https://www.seattletimes.com/opinion/editorials/the-seattle-times-editorial-board-recommends-garmon-newsom-for-seattle-municipal-court-position-5/" target="_blank">Garmon Newsom for Municipal Court Pos. 5</a>
+        </div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=44" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 44)</a>
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=42" target="_blank" class="pamphlet-link">📄 Unopposed SMC Pos. 1–4, 6–7 (pp. 42–45)</a>
+          <a href="https://ballotpedia.org/Garmon_Newsom" target="_blank">🔗 Ballotpedia Overview</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> 34-year legal career across prosecution, defense, and municipal law; endorsed by SMC Presiding Judge Anita Crawford-Willis and retiring Judge Willie Gregory.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">Sound & Grounded</span>
+        <p>Accurate presentation of the jurisdiction and diversion tools of Seattle Municipal Court.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Gabe Rothstein</div>
+          <div class="candidate-role">Public Defender & Judge Pro Tem</div>
+        </div>
+        <span class="party-tag party-np">Nonpartisan</span>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><span class="meta-label">Education:</span> Emory University (BA, Sociology); UCLA School of Law (JD)</div>
+        <div class="meta-item"><span class="meta-label">Work History:</span> Public Defender (2005–present, 70+ jury trials to verdict); Judge Pro Tem; Chair, WSBA Character and Fitness Board</div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Voter Guide Statement (King County Pamphlet p. 44)</div>
+        <p>Highlights 20+ years advocating for poor and underserved communities, taking evening/weekend shifts on the Youth Access to Counsel Line, and serving on the board of the Holman Recovery Center.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Specific Endorsement</div>
+        <div class="endorsement-badge">
+          ★ The Stranger: <a href="https://www.thestranger.com/news/the-strangers-2026-general-election-endorsements/#Gabe-Rothstein" target="_blank">Gabe Rothstein Endorsement</a>
+        </div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=44" target="_blank" class="pamphlet-link">📄 King County Pamphlet (p. 44)</a>
+          <a href="https://kcdems.org/endorsements/" target="_blank">🔗 King County Democrats Slate</a>
+          <a href="https://ballotpedia.org/Gabe_Rothstein" target="_blank">🔗 Ballotpedia Overview</a>
+        </div>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Qualification Assessment</div>
+        <p><strong>High:</strong> Substantial courtroom trial experience (70+ jury trials) and daily immersion in Seattle’s indigent defense and recovery systems.</p>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Understanding & Ethics</div>
+        <span class="rating-pill rating-high">High Legal Acumen</span>
+        <p>Solid grasp of therapeutic diversion mechanics, constitutional criminal procedure, and municipal support infrastructure.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. SEATTLE PROPOSITION 1 -->
+  <div id="prop-1" class="section-title">
+    15. City of Seattle Proposition No. 1 (Seattle Transit Measure)
+    <span>Municipal Ballot Measure &bull; 10-Year Sales Tax &bull; King County Pamphlet pp. 60–61, 76–80</span>
+  </div>
+  <div class="race-grid">
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote YES (Approval)</div>
+          <div class="candidate-role">Renew & Expand 0.30% Transit Sales Tax</div>
+        </div>
+        <span class="party-tag party-yes">Pro Measure</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Measure Summary & Pro Statement (KC Pamphlet pp. 60–61)</div>
+        <p>Replaces the expiring 0.15% sales tax with a 0.30% sales tax for up to 10 years (beginning April 1, 2027) to fund King County Metro routes with >65% of stops in Seattle, transit safety/security officers and behavioral health specialists, RapidRide service hours, electric buses in pollution-impacted neighborhoods, and 22,000+ free ORCA passes for low-income riders.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet & Proponent Links</div>
+        <p><strong>Pro Statement (p. 61):</strong> Written by Kirk Hovenkotter, Kathryn Ricchiuto, and Nick Sattele. Endorsed by Mayor Katie Wilson, KC Executive Girmay Zahilay, all Seattle City Councilmembers (including Dist. 7 Councilmember Bob Kettle), and ATU 587.</p>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=60" target="_blank" class="pamphlet-link">📄 KC Pamphlet: Explanatory Statement (p. 60)</a>
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=61" target="_blank" class="pamphlet-link">📄 KC Pamphlet: Pro/Con Arguments (p. 61)</a>
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=76" target="_blank" class="pamphlet-link">📄 Full Text of Ordinance 127474 (p. 76)</a>
+        </div>
+      </div>
+      <div class="fact-box solid">
+        <div class="fact-title"><span>✓</span> Ordinance Guardrails (pp. 77–78)</div>
+        <span class="rating-pill rating-high">75% Direct Bus Service Mandate</span>
+        <p>Section 3 of Ordinance 127474 (p. 78) legally requires at least 75% of annual revenues be spent directly on bus service hours and transit safety, and Section 6 prohibits supplanting existing King County Metro baseline funding.</p>
+      </div>
+    </div>
+
+    <div class="candidate-card">
+      <div class="candidate-header">
+        <div>
+          <div class="candidate-name">Vote NO (Rejection)</div>
+          <div class="candidate-role">Reject Sales Tax Doubling</div>
+        </div>
+        <span class="party-tag party-no">Against Measure</span>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Con Statement & Rebuttal (KC Pamphlet p. 61)</div>
+        <p>Written by Ari Hoffman. Argues that doubling the transit sales tax from 0.15% to 0.30% pushes Seattle's total sales tax rate to 10.7% (among the highest in America), disproportionately burdening working and low-income families, and criticizes funding up to $8M/yr for Sound Transit 3 staffing while fare evasion remains high.</p>
+      </div>
+      <div class="box-section">
+        <div class="box-title">Official Pamphlet Links</div>
+        <div class="source-links">
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=61" target="_blank" class="pamphlet-link">📄 KC Pamphlet: Con Argument (p. 61)</a>
+          <a href="https://cdn.kingcounty.gov/-/media/king-county/depts/elections/how-to-vote/voters-pamphlets/2026/11/local-edition.pdf#page=78" target="_blank" class="pamphlet-link">📄 Ordinance Sec. 7: Fare Recovery Reporting (p. 78)</a>
+        </div>
+      </div>
+      <div class="fact-box caution">
+        <div class="fact-title"><span>⚠</span> Trade-Off Context</div>
+        <span class="rating-pill rating-mid">Regressive Tax vs. Transit Cuts</span>
+        <p>Even the City's own ordinance recitals (p. 77) acknowledge that sales taxes are regressive; however, current 0.15% funding expires March 31, 2027, meaning a "No" vote eliminates funding for ~7% of Seattle's Metro bus service hours unless replaced.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Produced for local Queen Anne precinct voters based on the Official 2026 Washington State Voters' Pamphlet (Edition 04 - Seattle), the Official King County Local Voters' Pamphlet, and regional editorial endorsements.</p>
+  </footer>
+</div>
+
+</body>
+</html>
