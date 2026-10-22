@@ -300,11 +300,13 @@
   </div>
 
 
+  
   <!-- COMPARATIVE AXES & SCORECARDS -->
   <style>
     .scorecard-table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       margin: 1.25rem 0 2rem;
       background: #ffffff;
       border-radius: 8px;
@@ -326,8 +328,36 @@
       font-size: 0.78rem;
       letter-spacing: 0.04em;
     }
-    .scorecard-table tr:last-child td { border-bottom: none; }
-    .scorecard-table tr:hover td { background: #f8fafc; }
+    .race-group-header td {
+      background: #e2e8f0 !important;
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-top: 2px solid #cbd5e1;
+      border-bottom: 2px solid #cbd5e1;
+      padding: 0.6rem 0.85rem;
+    }
+    .scorecard-table tr.candidate-row:hover td {
+      background: #f8fafc;
+    }
+    .scorecard-table tr.candidate-row:last-child td {
+      border-bottom: none;
+    }
+    .candidate-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .candidate-name-bold {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .candidate-subtag {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
     .score-badge {
       font-weight: 700;
       padding: 0.2rem 0.5rem;
@@ -379,7 +409,7 @@
 
   <div id="candidate-scorecards" class="section-title" style="border-bottom: 3px solid var(--primary);">
     Candidate Characterization & Decision Axes Scorecards
-    <span>Pamphlet Statement Analysis</span>
+    <span>Grouped Head-to-Head Comparison</span>
   </div>
 
   <!-- Part 1: Supreme Court -->
@@ -397,7 +427,7 @@
     <table class="scorecard-table">
       <thead>
         <tr>
-          <th>Race & Candidate</th>
+          <th style="width: 28%;">Candidate & Role</th>
           <th>Appellate Mastery</th>
           <th>Trial Breadth</th>
           <th>Philosophy (1–10)</th>
@@ -407,8 +437,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><strong>Pos. 1: Colleen Melody</strong> (Incumbent)</td>
+        <!-- RACE 1 -->
+        <tr class="race-group-header">
+          <td colspan="7">⚖️ Position 1 (2-Year Unexpired Term) — Succeeded Justice Mary Yu</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Colleen Melody</span>
+              <span class="candidate-subtag">Incumbent Justice (Appointed Jan 2026)</span>
+            </div>
+          </td>
           <td>9 / 10</td>
           <td>8 / 10</td>
           <td>8 (Civil Rights)</td>
@@ -416,8 +455,13 @@
           <td>10 / 10</td>
           <td><span class="score-badge score-top">9.0 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 1: Scott Edwards</strong> (Challenger)</td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Scott Edwards</span>
+              <span class="candidate-subtag">Challenger & Appellate/Tax Attorney</span>
+            </div>
+          </td>
           <td>8 / 10</td>
           <td>5 / 10</td>
           <td>2 (Textualist)</td>
@@ -425,8 +469,18 @@
           <td>5 / 10</td>
           <td><span class="score-badge score-good">6.5 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 3: Jaime Michelle Hawk</strong></td>
+
+        <!-- RACE 2 -->
+        <tr class="race-group-header">
+          <td colspan="7">⚖️ Position 3 (6-Year Term) — Succeeded Justice Raquel Montoya-Lewis</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Jaime Michelle Hawk</span>
+              <span class="candidate-subtag">King County Superior Court Judge</span>
+            </div>
+          </td>
           <td>8 / 10</td>
           <td>9 / 10</td>
           <td>8 (Civil Rights)</td>
@@ -434,8 +488,13 @@
           <td>9 / 10</td>
           <td><span class="score-badge score-top">8.6 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 3: David Stevens</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">David Stevens</span>
+              <span class="candidate-subtag">Mason County Superior Court Judge</span>
+            </div>
+          </td>
           <td>5 / 10</td>
           <td>9 / 10</td>
           <td>2 (Textualist)</td>
@@ -443,8 +502,18 @@
           <td>5 / 10</td>
           <td><span class="score-badge score-good">6.0 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 4: Sean O'Donnell</strong></td>
+
+        <!-- RACE 3 -->
+        <tr class="race-group-header">
+          <td colspan="7">⚖️ Position 4 (6-Year Term) — Succeeded Justice Charles W. Johnson</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Sean O'Donnell</span>
+              <span class="candidate-subtag">King County Superior Court Judge</span>
+            </div>
+          </td>
           <td>8 / 10</td>
           <td>10 / 10</td>
           <td>6 (Pragmatic)</td>
@@ -452,8 +521,13 @@
           <td>10 / 10</td>
           <td><span class="score-badge score-top">9.3 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 4: Ian Birk</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Ian Birk</span>
+              <span class="candidate-subtag">Judge, WA Court of Appeals (Division I)</span>
+            </div>
+          </td>
           <td>9 / 10</td>
           <td>8 / 10</td>
           <td>8 (Progressive)</td>
@@ -461,8 +535,18 @@
           <td>8 / 10</td>
           <td><span class="score-badge score-good">8.0 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 5: Theo Angelis</strong> (Incumbent)</td>
+
+        <!-- RACE 4 -->
+        <tr class="race-group-header">
+          <td colspan="7">⚖️ Position 5 (2-Year Unexpired Term) — Succeeded Justice Barbara Madsen</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Theo Angelis</span>
+              <span class="candidate-subtag">Incumbent Justice (Appointed Apr 2026)</span>
+            </div>
+          </td>
           <td>10 / 10</td>
           <td>8 / 10</td>
           <td>7 (Institutional)</td>
@@ -470,8 +554,13 @@
           <td>10 / 10</td>
           <td><span class="score-badge score-top">9.4 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 5: Dave Larson</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Dave Larson</span>
+              <span class="candidate-subtag">Retired Federal Way Municipal Court Judge</span>
+            </div>
+          </td>
           <td>5 / 10</td>
           <td>8 / 10</td>
           <td>3 (Reform Critic)</td>
@@ -479,8 +568,18 @@
           <td>6 / 10</td>
           <td><span class="score-badge score-good">6.8 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 7: Debra L. Stephens</strong> (Chief Justice)</td>
+
+        <!-- RACE 5 -->
+        <tr class="race-group-header">
+          <td colspan="7">⚖️ Position 7 (6-Year Term) — Chief Justice Term</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Debra L. Stephens</span>
+              <span class="candidate-subtag">Incumbent Chief Justice</span>
+            </div>
+          </td>
           <td>10 / 10</td>
           <td>9 / 10</td>
           <td>7 (Institutional)</td>
@@ -488,8 +587,13 @@
           <td>10 / 10</td>
           <td><span class="score-badge score-top">9.6 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>Pos. 7: Todd A. Bloom</strong> (Challenger)</td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Todd A. Bloom</span>
+              <span class="candidate-subtag">Challenger, Tax Attorney & CPA</span>
+            </div>
+          </td>
           <td>3 / 10</td>
           <td>3 / 10</td>
           <td>2 (Textualist)</td>
@@ -508,7 +612,7 @@
     <table class="scorecard-table">
       <thead>
         <tr>
-          <th>Contest & Candidate</th>
+          <th style="width: 28%;">Candidate & Role</th>
           <th>Core Operational Skill</th>
           <th>Balance / Philosophy</th>
           <th>Therapeutic / Statutory Realism</th>
@@ -517,48 +621,92 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><strong>SMC Pos. 5: Garmon Newsom</strong></td>
+        <!-- LOCAL RACE 1 -->
+        <tr class="race-group-header">
+          <td colspan="6">🏛️ Seattle Municipal Court — Position No. 5 (Contested)</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Garmon Newsom</span>
+              <span class="candidate-subtag">Judge Pro Tem & Former City Attorney</span>
+            </div>
+          </td>
           <td>9 / 10 (Courtroom Mgmt)</td>
-          <td>6 / 10 (Balanced Prosecutor/Defense)</td>
+          <td>6 / 10 (Prosecutor & Defense)</td>
           <td>8 / 10</td>
           <td>10 / 10 (Highest Bar Ratings)</td>
           <td><span class="score-badge score-top">9.1 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>SMC Pos. 5: Gabe Rothstein</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Gabe Rothstein</span>
+              <span class="candidate-subtag">Public Defender & Judge Pro Tem</span>
+            </div>
+          </td>
           <td>8 / 10 (Courtroom Mgmt)</td>
           <td>2 / 10 (Public Defense / Indigent)</td>
           <td>9 / 10</td>
           <td>8 / 10</td>
           <td><span class="score-badge score-good">8.4 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>KCDC West Pos. 1: Bardi Martin</strong></td>
+
+        <!-- LOCAL RACE 2 -->
+        <tr class="race-group-header">
+          <td colspan="6">🏛️ King County District Court — West Electoral District Position 1</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Bardi Martin</span>
+              <span class="candidate-subtag">Incumbent District Court Judge</span>
+            </div>
+          </td>
           <td>9 / 10 (Sitting Judge)</td>
           <td>4 / 10 (Community Court)</td>
           <td>9 / 10</td>
           <td>8 / 10</td>
           <td><span class="score-badge score-top">8.5 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>KCDC West Pos. 1: Nyjat Rose-Akins</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Nyjat Rose-Akins</span>
+              <span class="candidate-subtag">Pro Tem Judge & Former Asst. City Attorney</span>
+            </div>
+          </td>
           <td>8 / 10 (Pro Tem Judge)</td>
           <td>5 / 10 (Civil / City Attorney)</td>
           <td>8 / 10</td>
           <td>9 / 10 (5 Bar Ratings)</td>
           <td><span class="score-badge score-top">8.5 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>KC Assessor: Rob Foxcurran</strong></td>
+
+        <!-- LOCAL RACE 3 -->
+        <tr class="race-group-header">
+          <td colspan="6">📋 King County Assessor — Countywide Technical Office</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Rob Foxcurran</span>
+              <span class="candidate-subtag">Senior Appraiser & Hearing Examiner</span>
+            </div>
+          </td>
           <td>10 / 10 (Certified Appraiser)</td>
           <td>10 / 10 (Hearing Examiner)</td>
           <td>9 / 10 (Statutory Realism)</td>
           <td>10 / 10 (Bipartisan / Labor)</td>
           <td><span class="score-badge score-top">9.8 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>KC Assessor: Dominique Scarimbolo</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Dominique Scarimbolo</span>
+              <span class="candidate-subtag">Taxpayer Advocate & CAPR President</span>
+            </div>
+          </td>
           <td>2 / 10 (Non-Appraiser)</td>
           <td>4 / 10 (Taxpayer Appellant)</td>
           <td>3 / 10 (Misrepresents Authority)</td>
@@ -576,7 +724,7 @@
     <table class="scorecard-table">
       <thead>
         <tr>
-          <th>Contest & Candidate</th>
+          <th style="width: 28%;">Candidate & Role</th>
           <th>Legislative Record</th>
           <th>Fiscal / Policy Fluency</th>
           <th>Ideology (1=Cons., 10=Prog.)</th>
@@ -585,32 +733,61 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><strong>WA-07: Pramila Jayapal (D)</strong></td>
+        <!-- LEGISLATIVE RACE 1 -->
+        <tr class="race-group-header">
+          <td colspan="6">🏛️ U.S. House of Representatives — Washington's 7th Congressional District</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Pramila Jayapal</span>
+              <span class="candidate-subtag">Incumbent U.S. Representative (Democrat)</span>
+            </div>
+          </td>
           <td>9 / 10</td>
           <td>9 / 10</td>
           <td>10 (Progressive Leader)</td>
           <td>8 / 10</td>
           <td><span class="score-badge score-top">9.0 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>WA-07: Nirav Sheth (R)</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Nirav Sheth</span>
+              <span class="candidate-subtag">Challenger & Veteran (Republican)</span>
+            </div>
+          </td>
           <td>2 / 10</td>
           <td>4 / 10</td>
           <td>2 (Conservative)</td>
           <td>5 / 10 (Conflates Roles)</td>
           <td><span class="score-badge score-low">3.5 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>36th LD Sen: Noel Frame (D)</strong></td>
+
+        <!-- LEGISLATIVE RACE 2 -->
+        <tr class="race-group-header">
+          <td colspan="6">🏛️ Washington State Senate — 36th Legislative District</td>
+        </tr>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Noel Frame</span>
+              <span class="candidate-subtag">Incumbent State Senator (Democrat)</span>
+            </div>
+          </td>
           <td>9 / 10</td>
           <td>9 / 10</td>
           <td>9 (Progressive Tax Lead)</td>
           <td>8 / 10</td>
           <td><span class="score-badge score-top">8.8 / 10</span></td>
         </tr>
-        <tr>
-          <td><strong>36th LD Sen: Jillian England (R)</strong></td>
+        <tr class="candidate-row">
+          <td>
+            <div class="candidate-cell">
+              <span class="candidate-name-bold">Jillian England</span>
+              <span class="candidate-subtag">Challenger & Operations Pro (Republican)</span>
+            </div>
+          </td>
           <td>3 / 10</td>
           <td>5 / 10</td>
           <td>2 (Fiscal Conservative)</td>
